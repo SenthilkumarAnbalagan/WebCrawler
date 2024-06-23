@@ -1,0 +1,64 @@
+version: '3'
+
+volumes:
+  wc_data:
+    driver: local
+
+networks:
+  wc.net:
+    enable_ipv6: false
+    driver: bridge
+    ipam:
+        config:
+            - subnet: 172.19.0.0/16
+              gateway: 172.19.0.1
+            - subnet: 2001:db8:0:3:172:19:0:0/96
+              gateway: 2001:db8:0:3:172:19:0:1
+
+services:
+  wcserver:
+          #env_file:
+          #      - wcip.env
+    image: wc_server:0.1
+    container_name: wcserver
+    restart: on-failure 
+    #volumes:
+    # - db_home:/var/lib/postgresql/data
+    networks:
+      wc.net:
+        ipv4_address: 172.19.0.15
+        ipv6_address: 2001:db8:0:3:172:19:0:15
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+          #    healthcheck:
+          #      test: ["CMD", "bash", "/home/wc-db/check_wc_health.sh" ]
+          #      interval: 1m
+          #      timeout: 5s
+          #      retries: 10
+          #      start_period: 30s
+    ports:
+      - 6363:6363
+
+  wcclient:
+    container_name: wcclient
+    image: wc_client:0.1
+    restart: unless-stopped
+    #env_file:
+    # - wcip.env
+    networks:
+      wc.net:
+        ipv4_address: 172.19.0.14
+        ipv6_address: 2001:db8:0:3:172:19:0:14
+    command: [ "/bin/bash", "/opt/start.sh" ]
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+          # healthcheck:
+          #       test: ["CMD", "bash", "/home/wc-db/check_wc_health.sh" ]
+          #       interval: 1m
+          #       timeout: 5s
+          #       retries: 10
+          #       start_period: 30s
+    ports:
+        - 6464:6464
