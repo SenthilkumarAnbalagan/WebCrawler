@@ -76,8 +76,8 @@ public class WebCrawlerCommand implements Callable<Integer> {
 			return 1;
 		}
 
-		System.out.println(" depthValue :: " + depthValue);
-		System.out.println(" portValue :: " + portValue);
+		//System.out.println(" depthValue :: " + depthValue);
+		//System.out.println(" portValue :: " + portValue);
 		WebCrawlerClient wc = new WebCrawlerClient(depthValue, isDomainOnly, url, host, portValue);
 		wc.setPrettyPrint(isPrettyPrint);
 		wc.startCrawling();
