@@ -3,5 +3,5 @@ RUN apt-get update && \
     apt-get -y install vim net-tools
 WORKDIR /opt
 EXPOSE 8080
-COPY target/*.jar /opt/webcrawler_client_v1.jar
-#ENTRYPOINT exec java $JAVA_OPTS -jar webcrawler_client_v1.jar
+COPY *.jar /opt/webcrawler_client_v1.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar webcrawler_client_v1.jar -z

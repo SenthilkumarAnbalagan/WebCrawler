@@ -56,7 +56,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-                  <mainClass>com.java.wc.client.command.MainCommand</mainClass>
+                  <mainClass>com.java.wc.client.command.WebCrawlerCommand</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
