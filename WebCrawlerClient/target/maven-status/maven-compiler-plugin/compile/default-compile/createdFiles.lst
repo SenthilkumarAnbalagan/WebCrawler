@@ -1,0 +1,6 @@
+com\java\wc\client\bean\WcRequest.class
+com\java\wc\client\util\CrawlUtils.class
+com\java\wc\client\main\CrawlHttpClient.class
+com\java\wc\client\main\WebCrawlerClient.class
+com\java\wc\client\bean\Response.class
+com\java\wc\client\command\WebCrawlerCommand.class
