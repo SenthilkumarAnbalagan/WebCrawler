@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webcrawler-deployment
+  labels:
+    app: webcrawler
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: webcrawler
+  template:
+    metadata:
+      labels:
+        app: webcrawler
+    spec:
+      containers:
+        - name: webcrawler-server
+          image: wc_server:0.1
+          workingDir: /opt
+          command: ["sh", "-c", "exec java $JAVA_OPTS -jar webcrawler_server_v1.jar"]
+          ports:
+            - containerPort: 6363
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m"  
+        
+        - name: webcrawler-client
+          image: wc_client:0.1 
+          workingDir: /opt
+          command: ["sh", "-c", "exec java $JAVA_OPTS -jar webcrawler_client_v1.jar -z"]
+          volumeMounts:
+            - name: data-volume  
+              mountPath: /data
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m" 
+

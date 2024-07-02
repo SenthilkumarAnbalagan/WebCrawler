@@ -1,8 +1,0 @@
-FROM openjdk:11
-RUN apt-get update && \
-    apt-get -y install vim net-tools
-WORKDIR /opt
-EXPOSE 8080
-COPY *.jar /opt/webcrawler_server_v1.jar
-COPY curl_test.sh  /opt/
-ENTRYPOINT exec java $JAVA_OPTS -jar webcrawler_server_v1.jar
